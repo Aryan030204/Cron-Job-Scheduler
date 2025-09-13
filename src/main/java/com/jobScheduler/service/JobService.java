@@ -1,6 +1,7 @@
 package com.jobScheduler.service;
 
 import com.jobScheduler.model.Job;
+import com.jobScheduler.model.JobLog;
 import com.jobScheduler.repository.JobRepository;
 import com.jobScheduler.repository.JobLogRepository;
 import com.jobScheduler.utils.CronUtils;
@@ -9,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.quartz.*;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,7 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class JobService {
 
-    private final Scheduler scheduler; // injected by Spring Boot
+    private final Scheduler scheduler;
     private final JobRepository jobRepository;
     private final JobLogRepository jobLogRepository;
     
@@ -120,13 +124,15 @@ public class JobService {
         return jobRepository.save(job);
     }
 
-	public void performJobLogic(String jobName) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void doSomething() {
-		// TODO Auto-generated method stub
+	public void doSomething(String jobId) {
+		System.out.println("This Job is executed at: " + new java.util.Date());
+		JobLog log = new JobLog();
+		log.setJobId(jobId);
+		log.setMessage("Job executed successfully");
+		log.setTimestamp(LocalDateTime.now());
+		long millis = System.currentTimeMillis();
+		log.setTimestamp(LocalDateTime.ofInstant(new Date(millis).toInstant(), ZoneId.systemDefault()));
+	    jobLogRepository.save(log);
 		
 	}
 }
