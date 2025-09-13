@@ -22,12 +22,7 @@ public class JobService {
     private final JobLogRepository jobLogRepository;
     
 
-    public JobService(Scheduler scheduler, JobRepository jobRepository, JobLogRepository jobLogRepository) {
-		super();
-		this.scheduler = scheduler;
-		this.jobRepository = jobRepository;
-		this.jobLogRepository = jobLogRepository;
-	}
+    // Lombok's @RequiredArgsConstructor generates the constructor automatically.
 
 	// core schedule method (enhanced)
     public void scheduleJob(Job job) throws SchedulerException {

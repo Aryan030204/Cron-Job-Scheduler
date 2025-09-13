@@ -16,9 +16,6 @@ public class JobController {
 
     private final JobService jobService;
     
-    public JobController(JobService jobService) {
-        this.jobService = jobService;
-    }
 
     @PostMapping("/schedule")
     public ResponseEntity<?> scheduleJob(@RequestBody Job job) {

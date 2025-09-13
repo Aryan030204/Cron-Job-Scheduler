@@ -16,9 +16,6 @@ public class ConsoleRunner implements CommandLineRunner {
 
     private final JobService jobService;
     
-    public ConsoleRunner(JobService jobService) {
-        this.jobService = jobService;
-    }
 
     @Override
     public void run(String... args) throws Exception {

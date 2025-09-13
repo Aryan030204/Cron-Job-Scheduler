@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Document(collection = "jobs")
-@Builder
 public class Job {
 
     @Id
@@ -44,4 +43,7 @@ public class Job {
 		// TODO Auto-generated method stub
 		return null;
 	}
+    public Job() {
+        //TODO Auto-generated constructor stub
+    }
 }
