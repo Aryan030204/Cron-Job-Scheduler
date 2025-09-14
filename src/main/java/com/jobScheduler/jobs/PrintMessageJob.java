@@ -11,15 +11,19 @@ import org.springframework.stereotype.Component;
 public class PrintMessageJob implements Job {
 
     @Autowired
-    private JobService jobService; // Quartz will now inject this
+    private JobService jobService;
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
+        // jobId is stored in JobDataMap when scheduling
         String jobId = context.getJobDetail().getJobDataMap().getString("jobId");
+        String jobName = context.getJobDetail().getKey().getName();
 
-        System.out.println("Executing job: " + context.getJobDetail().getKey().getName() 
-                           + " (jobId=" + jobId + ")");
-
-        jobService.doSomething(jobId);
+        System.out.println("Quartz fired job: " + jobName + " (jobId=" + jobId + ") at " + java.time.LocalDateTime.now());
+        try {
+            jobService.doSomething(jobId);
+        } catch (Exception e) {
+            throw new JobExecutionException(e);
+        }
     }
 }
