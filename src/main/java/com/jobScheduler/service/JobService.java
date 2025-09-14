@@ -29,7 +29,6 @@ public class JobService {
     private final JobRepository jobRepository;
     private final JobLogRepository jobLogRepository;
 
-    // core schedule method
     public void scheduleJob(Job job) throws SchedulerException {
         if (!CronUtils.isValidCron(job.getCronExpression())) {
             throw new IllegalArgumentException("Invalid cron expression: " + job.getCronExpression());
@@ -113,7 +112,6 @@ public class JobService {
         return jobRepository.save(job);
     }
 
-    // execute logic based on action
     public void doSomething(String jobId) {
         Optional<Job> opt = jobRepository.findById(jobId);
         if (opt.isEmpty()) return;

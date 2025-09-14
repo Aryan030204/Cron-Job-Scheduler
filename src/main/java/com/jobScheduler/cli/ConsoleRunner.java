@@ -18,7 +18,6 @@ public class ConsoleRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Run console in a separate thread so Spring still finishes starting
         new Thread(() -> {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
                 String line;
@@ -69,10 +68,8 @@ public class ConsoleRunner implements CommandLineRunner {
                     job.setName(name);
                     job.setCronExpression(cron);
 
-                    // Save preliminary job
                     job = jobService.saveJob(job);
 
-                    // Ask user which action the job should perform
                     System.out.println("Select an action for this job:");
                     System.out.println("  1. Print a custom message");
                     System.out.println("  2. Run a countdown timer");
@@ -118,10 +115,8 @@ public class ConsoleRunner implements CommandLineRunner {
                             job.setPayload("Hello from " + job.getName());
                     }
 
-                    // Save again with action+payload
                     job = jobService.saveJob(job);
 
-                    // Schedule job
                     jobService.scheduleJob(job);
                     System.out.println("Scheduled job id=" + job.getId() + " with action=" + job.getAction());
                     break;

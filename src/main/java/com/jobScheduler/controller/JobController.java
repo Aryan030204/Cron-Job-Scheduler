@@ -20,7 +20,6 @@ public class JobController {
     @PostMapping("/schedule")
     public ResponseEntity<?> scheduleJob(@RequestBody Job job) {
         try {
-            // if job id is null, save to get an id (Mongo will assign)
             if (job.getId() == null) {
                 job = jobService.saveJob(job);
             }

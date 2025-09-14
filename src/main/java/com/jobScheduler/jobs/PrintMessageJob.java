@@ -15,7 +15,6 @@ public class PrintMessageJob implements Job {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        // jobId is stored in JobDataMap when scheduling
         String jobId = context.getJobDetail().getJobDataMap().getString("jobId");
         String jobName = context.getJobDetail().getKey().getName();
 
